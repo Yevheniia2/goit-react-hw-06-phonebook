@@ -1,20 +1,19 @@
 // import PropTypes from 'prop-types';
 import { FilterBox } from './Filter.styled';
 import { FormParagraph, FormInput } from 'components/ContactForm/ContactForm.styled';
-import { useDispatch } from 'react-redux';
-import { filterSlice } from './../../Redux/redusers';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFilter } from './../../Redux/selectors';
+import * as actions from './../../Redux/actions';
 
 export function Filter() {
     const dispatch = useDispatch();
-  
-    const handleSetFilterValue = ({ target: { value } }) => {
-       dispatch(filterSlice(value));
-    };
+    const value = useSelector(getFilter);
+    const handleSetFilterValue = event => dispatch(actions.filterContact(event.target.value));
 
     return (
         <FilterBox>
             <FormParagraph>Find contacts</FormParagraph>
-            <FormInput type="text" onChange={ handleSetFilterValue } />
+            <FormInput type="text" onChange={ handleSetFilterValue } value={value} pattern={"[^'\x22]+"} required/>
         </FilterBox>
     )
 }

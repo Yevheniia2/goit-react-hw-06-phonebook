@@ -1,48 +1,66 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import PropTypes from 'prop-types';
-import { onAddContact } from './../../Redux/actions';
-import { nanoid } from '@reduxjs/toolkit';
+import * as actions from './../../Redux/actions';
 import { FormBox, FormParagraph, FormInput, FormButton, FormLabel } from "./ContactForm.styled";
-import { addContact } from './../../Redux/selectors';
+import { getContacts } from './../../Redux/selectors';
 
 export function ContactForm () {
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
 
     const dispatch = useDispatch();
-    const contacts = useSelector(addContact);
+    const contacts = useSelector(getContacts);
         
-    const handleSubmit = event => {
-        event.preventDefault();
-        const name = event.target.name.value;
-        const number = event.target.number.value;
-        const createdContact = ({
-            name,
-            number,
-            id: nanoid()
-        });
-
-        if (contacts.name === createdContact.name) {
-            alert('You can`t enter this contact again. it`s already entered :(');
-        } else {
-            dispatch(onAddContact(createdContact));
-        }
-
-        if (contacts.number === createdContact.number) {
-            alert('You can`t enter this number again. it`s already entered :(');
-        } else {
-            dispatch(onAddContact(createdContact));
-        }
-        
-        event.target.reset();
-        setName('');
-        setNumber('');
-    };
     const handleChangeInput = event => {
-        const { value } = event.currentTarget;
-        event.currentTarget.name === 'name' ? setName(value) : setNumber(value);
-    };
+        const { name, value } = event.currentTarget;
+    
+        switch (name) {
+          case 'name':
+            setName(value);
+            break;
+    
+          case 'number':
+            setNumber(value);
+            break;
+    
+          default:
+            return;
+        }
+      };
+    
+      const resetName = () => {
+        setName('');
+      };
+    
+      const resetNumber = () => {
+        setNumber('');
+      };
+    
+      const checkName = name => {
+        return contacts.find(
+          contact => contact.name.toLowerCase() === name.toLowerCase(),
+        );
+      };
+    
+      const checkNumber = number => {
+        return contacts.find(contact => contact.number === number);
+      };
+    
+      const handleSubmit = e => {
+        e.preventDefault();
+    
+        if (checkName(name)) {
+          alert(`${name} is already in contacts`);
+        } else if (checkNumber(number)) {
+          alert(`${number} is already in your contacts!`);
+        } else {
+          dispatch(actions.onAddContact(name, number));
+        }
+    
+        resetName();
+        resetNumber();
+      };
 
     return (
         <FormBox onSubmit={ handleSubmit }>
