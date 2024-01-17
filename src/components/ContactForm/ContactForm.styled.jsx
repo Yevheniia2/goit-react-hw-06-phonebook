@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 export const FormBox = styled.form`
     display: block;
-    background: rgba(255,255,255,0.2);
+    background-color: rgba(255,255,255,0.2);
     padding: 0.5em;
     border-radius: 20px;
     border-left: 1px solid $white;
@@ -32,7 +32,7 @@ export const FormParagraph = styled.p`
 `;
 
 export const FormInput = styled.input`
-    background: transparent;
+    background-color: transparent;
     width: 200px;
     padding: 1em;
     margin-bottom: 10px;
@@ -50,18 +50,18 @@ export const FormInput = styled.input`
     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
     
     &:hover {
-        background: rgba(255,255,255,0.1);
+        background-color: rgba(255,255,255,0.1);
         box-shadow: 4px 4px 60px 8px rgba(0,0,0,0.2);
     }
 
     &:focus {
-        background: rgba(255,255,255,0.1);
+        background-color: rgba(255,255,255,0.1);
         box-shadow: 4px 4px 60px 8px rgba(0,0,0,0.2);
     }
 `;
 
 export const FormButton = styled.button`
-    background: transparent;
+    background-color: transparent;
     padding: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -81,17 +81,17 @@ export const FormButton = styled.button`
     font-size: 14px;
         
     &:hover {
-        background: rgba(255,255,255,0.1);
+        background-color: rgba(255,255,255,0.1);
         box-shadow: 4px 4px 60px 8px rgba(0,0,0,0.2);
         cursor: pointer;
     }
 
     &:focus {
-        background: rgba(255,255,255,0.1);
+        background-color: rgba(255,255,255,0.1);
         box-shadow: 4px 4px 60px 8px rgba(0,0,0,0.2);
     }
         
     &:active {
-        background: rgba(255,255,255,0.2);
+        background-color: rgba(255,255,255,0.2);
     }
 `;

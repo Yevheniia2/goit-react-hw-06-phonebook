@@ -27,17 +27,17 @@ const itemsReducer = createReducer([
        { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
      ], (builder) => {
    builder
-     .addCase([actions.onAddContact], (state, { payload }) => {
+     .addCase(actions.onAddContact, (state, { payload }) => {
        return [...state, payload]
      })
-     .addCase([actions.onDeleteContact], (state, { payload }) => {
+     .addCase(actions.onDeleteContact, (state, { payload }) => {
        return [state.filter(({ id }) => id !== payload)]
      })
  })
 
  const filterReducer = createReducer([],(builder) => {
    builder
-   .addCase([actions.filterContact], (_, { payload }) => {
+   .addCase(actions.filterContact, (_, { payload }) => {
       return payload
    })
 }

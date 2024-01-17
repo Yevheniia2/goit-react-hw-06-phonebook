@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const ContactListUl = styled.ul`
-    background: rgba(255,255,255,0.2);
+    background-color: rgba(255,255,255,0.2);
     padding: 0.5em;
     border-radius: 20px;
     border-left: 1px solid $white;

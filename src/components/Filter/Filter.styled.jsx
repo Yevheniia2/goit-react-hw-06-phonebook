@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const FilterBox = styled.div`
-    background: rgba(255,255,255,0.2);
+    background-color: rgba(255,255,255,0.2);
     margin-top: 16px;
     padding: 0.5em;
     border-radius: 20px;
