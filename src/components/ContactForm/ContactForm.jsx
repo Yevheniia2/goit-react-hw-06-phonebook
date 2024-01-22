@@ -1,65 +1,56 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import PropTypes from 'prop-types';
+import { nanoid } from 'nanoid';
 import * as actions from './../../Redux/actions';
 import { FormBox, FormParagraph, FormInput, FormButton, FormLabel } from "./ContactForm.styled";
 import { getContacts } from './../../Redux/selectors';
 
-export function ContactForm () {
+// function getRenderContacts (state) {
+//   const contacts = getContacts(state);
+//   const filteredContacts = getFilter(state);
+//   const normalizedFilter = filteredContacts.toLowerCase();
+//     return contacts.filter(contact =>
+//       contact.name.toLowerCase().includes(normalizedFilter)
+//     );
+// };
+
+export function ContactForm () {     
+    const contacts = useSelector(getContacts);
+    const dispatch = useDispatch();
+
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
-
-    const dispatch = useDispatch();
-    const contacts = useSelector(getContacts);
         
     const handleChangeInput = event => {
-        const { name, value } = event.currentTarget;
-    
-        switch (name) {
-          case 'name':
-            setName(value);
-            break;
-    
-          case 'number':
-            setNumber(value);
-            break;
-    
-          default:
-            return;
+        const { value } = event.currentTarget;
+        event.currentTarget.name === 'name' ? setName(value) : setNumber(value);
+    }  
+        const handleSubmit = e => {
+          e.preventDefault();
+      
+        const allContacts = contacts.reduce((acc, contact) => {
+          acc.push(contact.name);
+          return acc;
+        }, []);
+      
+        if (allContacts.includes(name)) {
+          alert(`${name} already in contacts.`);
+          return;
         }
+      
+        const contact = {
+          id: nanoid(),
+          name,
+          number,
+        };
+      
+        dispatch(actions.onAddContact(contact));
+        reset();
       };
-    
-      const resetName = () => {
+      
+      const reset = () => {
         setName('');
-      };
-    
-      const resetNumber = () => {
         setNumber('');
-      };
-    
-      const checkName = name => {
-        return contacts.find(
-          contact => contact.name.toLowerCase() === name.toLowerCase(),
-        );
-      };
-    
-      const checkNumber = number => {
-        return contacts.find(contact => contact.number === number);
-      };
-    
-      const handleSubmit = e => {
-        e.preventDefault();
-    
-        if (checkName(name)) {
-          alert(`${name} is already in contacts`);
-        } else if (checkNumber(number)) {
-          alert(`${number} is already in your contacts!`);
-        } else {
-          dispatch(actions.onAddContact(name, number));
-        }
-    
-        resetName();
-        resetNumber();
       };
 
     return (
@@ -92,7 +83,3 @@ export function ContactForm () {
         </FormBox>
     );
 }
-
-// ContactForm.propTypes = {
-//     onAddContact: PropTypes.func,
-// };

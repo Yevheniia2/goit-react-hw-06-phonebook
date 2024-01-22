@@ -1,31 +1,42 @@
-import { ContactListItem } from "./ContactListItem";
-// import PropTypes from 'prop-types';
-import { ContactListUl } from "./ContactList.styled";
-import { FormButton } from "./../ContactForm/ContactForm.styled";
-import { getRenderContacts } from './../../Redux/selectors';
-import { useDispatch, useSelector } from 'react-redux';
+import { ContactListUl, ContactListLi, ItemButton, ItemParagraph } from "./ContactList.styled";
+import { getContacts, getFilter } from './../../Redux/selectors';
+import { useSelector } from 'react-redux';
 import * as actions from './../../Redux/actions';
+import { useDispatch } from 'react-redux';
 
 export function ContactList () {
-    const contacts = useSelector(getRenderContacts);
+    const contacts = useSelector(getContacts);
+    const filterCont = useSelector(getFilter);
     const dispatch = useDispatch();
-    const handleDeleteContact = id => dispatch(actions.onDeleteContact(id));
+    const handleDeleteContact = () => dispatch(actions.onDeleteContact());
+
+    const findContact = () => {
+      return contacts.filter(contact => {
+        return contact.name
+          .toLowerCase()
+          .includes(filterCont.trim().toLowerCase());
+      });
+    };
+    const foundContacts = findContact();
+
     
     return (
-      <ContactListUl>
-        {contacts.map(({ name, number, id }) => (
-          <ContactListItem key={id} >
-            {name}: {number}
-            <FormButton
-              type="button"
-              onClick={() => handleDeleteContact(id)}>
-              Delete
-            </FormButton>
-          </ContactListItem>
-        ))}
+      <ContactListUl >
+        {foundContacts.map(({ name, number, id }) => {
+          return (
+            <ContactListLi key={id} id={id}>
+              <ItemParagraph>{name + ':' + number}</ItemParagraph>
+              <ItemButton
+                type="button"
+                onClick={handleDeleteContact}>
+                Delete
+              </ItemButton>
+            </ContactListLi>
+          );
+          })}
       </ContactListUl>
     );
-  };
+  }
 
 // ContactList.propTypes = {
 //     contacts: PropTypes.array,
