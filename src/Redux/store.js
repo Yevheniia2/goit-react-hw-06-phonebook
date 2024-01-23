@@ -29,7 +29,7 @@ import filterReducer from './slices/filterSlice';
  
  export const store = configureStore({
   reducer: {
-    contacts: persistedReducer,
+    contact: persistedReducer,
     filter: filterReducer,
   },
   middleware: getDefaultMiddleware =>

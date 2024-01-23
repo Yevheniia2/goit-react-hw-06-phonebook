@@ -1,8 +1,7 @@
 // import { combineReducers } from 'redux';
-// // import { createReducer } from '@reduxjs/toolkit';
+// import { createReducer } from '@reduxjs/toolkit';
 // import { onAddContact, onDeleteContact, filterContact } from './actions';
-// // import shortid from 'shortid';
-// // import { nanoid } from 'nanoid';
+// // // import { nanoid } from 'nanoid';
 
 // const initialState = {
 //   contacts: [
@@ -49,9 +48,9 @@
 //     case onAddContact.type:
 //       return state.contacts.push(payload);
 //     case onDeleteContact.type:
-//       return state.contacts = state.contacts.findIndex(({ id }) => id !== payload);
+//       return state.contacts = state.contact.filter(({ id }) => id !== payload);
 //     default:
-//       return initialState;
+//       return state;
 //   }
 // }
 
