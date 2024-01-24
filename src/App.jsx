@@ -1,13 +1,13 @@
-import { ContactForm } from "./ContactForm/ContactForm";
-import { ContactList } from "./ContactList/ContactList";
-import { FilterForm } from "./FilterForm/FilterForm";
-import { AppContainer } from "./App.styled";
-// import PropTypes from 'prop-types';
-// import { getContacts } from './../Redux/selectors';
 // import { useSelector } from 'react-redux';
+// import { getContacts } from './../src/Redux/selectors';
+import ContactForm from "./components/ContactForm/ContactForm";
+import ContactList from "./components/ContactList/ContactList";
+import FilterForm from "./components/FilterForm/FilterForm";
+import { AppContainer } from "./App.styled";
 
 export default function App() {
-  // const contact = useSelector(getContacts);
+  // const contacts = useSelector(getContacts);
+
   // const contactsLength = contacts.length;
 
   return (

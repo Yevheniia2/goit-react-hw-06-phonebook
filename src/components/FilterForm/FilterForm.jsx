@@ -3,14 +3,13 @@ import { FilterBox } from './FilterForm.styled';
 import { FormParagraph, FormInput } from 'components/ContactForm/ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFilter } from '../../Redux/selectors';
-import * as actions from '../../Redux/actions';
+import { changeFilter } from './../../Redux/slices/filterSlice';
 
-export function FilterForm() {
-    const dispatch = useDispatch();
+export default function FilterForm() {
     const value = useSelector(getFilter);
-    function handleSetFilterValue (event) {
-        dispatch(actions.filterContact(event.target.value));
-    }
+    const dispatch = useDispatch();
+  
+    const handleSetFilterValue = event => dispatch(changeFilter(event.target.value));
 
     return (
         <FilterBox>

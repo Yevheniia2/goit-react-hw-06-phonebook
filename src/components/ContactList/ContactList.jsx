@@ -1,34 +1,37 @@
 import { ContactListUl, ContactListLi, ItemButton, ItemParagraph } from "./ContactList.styled";
+import { useSelector, useDispatch } from 'react-redux';
 import { getContacts, getFilter } from './../../Redux/selectors';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
 import { deleteContact } from "./../../Redux/slices/contactSlice";
 
-export function ContactList () {
-    const contacts = useSelector(getContacts);
-    const filter = useSelector(getFilter);
-    const filterValue = filter.toLowerCase().trim();
-    const findContact = contacts.filter(contact => contact.name.toLowerCase().includes(filterValue))
-    const dispatch = useDispatch();
-    const handleDeleteContact = id => {dispatch(deleteContact(id))};
-    // const findContact = contacts.filter(contact => contact.name
-    //       .toLowerCase()
-    //       .includes(filter.trim().toLowerCase())
-    //   );
-      // function filterContacts(contacts, filter) {
-      //   const filterValue = filter.toLowerCase().trim();
-      //   return contacts.filter((contact) => contact.name.toLowerCase().includes(filterValue));
-      //  }
+// export const getVisibleContacts = state => {
+//   const contacts = useSelector(getContacts);
+//   const filter = useSelector(getFilter)
+//   const normalizedFilter = filter.toLowerCase();
 
+//   return contacts.filter(({ name }) =>
+//     name.toLowerCase().includes(normalizedFilter),
+//   );
+// };
+
+export default function ContactList() {
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
+  const dispatch = useDispatch();
+
+  const onDeleteContact = id => dispatch(deleteContact(id));
     
     return (
       <ContactListUl >
-        {findContact.map((contact) => (
-            <ContactListLi key={contact.id}>
-              <ItemParagraph>{contact.name + ':' + contact.number}</ItemParagraph>
+        {Object.values(contacts).filter(
+            contact =>
+              filter === '' ||
+              contact.name.toLowerCase().includes(filter.toLowerCase().trim())
+          ).map(({name, id, number}) => (
+            <ContactListLi key={id}>
+              <ItemParagraph>{name + ':' + number}</ItemParagraph>
               <ItemButton
                 type="button"
-                onClick={handleDeleteContact}>
+                onClick={() => onDeleteContact(id)}>
                 Delete
               </ItemButton>
             </ContactListLi>
@@ -36,8 +39,3 @@ export function ContactList () {
       </ContactListUl>
     );
   }
-
-// ContactList.propTypes = {
-//     contacts: PropTypes.array,
-//     handleDeleteContact: PropTypes.func,
-// };
