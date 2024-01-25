@@ -3,26 +3,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getContacts, getFilter } from './../../Redux/selectors';
 import { deleteContact } from "./../../Redux/slices/contactSlice";
 
-// export const getVisibleContacts = state => {
-//   const contacts = useSelector(getContacts);
-//   const filter = useSelector(getFilter)
-//   const normalizedFilter = filter.toLowerCase();
-
-//   return contacts.filter(({ name }) =>
-//     name.toLowerCase().includes(normalizedFilter),
-//   );
-// };
-
 export default function ContactList() {
   const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
+  const filter = useSelector(getFilter); 
   const dispatch = useDispatch();
 
-  const onDeleteContact = id => dispatch(deleteContact(id));
+  const onDeleteContact = () => dispatch(deleteContact(contacts.id));
     
     return (
       <ContactListUl >
-        {Object.values(contacts).filter(
+        {contacts.filter(
             contact =>
               filter === '' ||
               contact.name.toLowerCase().includes(filter.toLowerCase().trim())
@@ -31,7 +21,7 @@ export default function ContactList() {
               <ItemParagraph>{name + ':' + number}</ItemParagraph>
               <ItemButton
                 type="button"
-                onClick={() => onDeleteContact(id)}>
+                onClick={onDeleteContact}>
                 Delete
               </ItemButton>
             </ContactListLi>

@@ -14,21 +14,12 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import logger from 'redux-logger';
-// import phoneBookReducer from './../Redux/redusers';
 import { contactsReducer } from './../Redux/slices/contactSlice';
 import { filterReducer  } from './slices/filterSlice';
 
-// const middleware = [
-//   ...getDefaultMiddleware({
-//     serializableCheck: {
-//       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-//     },
-//   }),
-//   logger,
-// ];
 
 const persistConfig = {
-  key: 'contacts',
+  key: 'root',
   storage,
 };
 
@@ -36,6 +27,11 @@ export const rootReducer = combineReducers({
   contacts: contactsReducer,
   filter: filterReducer,
 });
+
+export const persistedContactReducer = persistReducer(
+  persistConfig,
+  contactsReducer
+);
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
