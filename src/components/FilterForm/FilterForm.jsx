@@ -1,4 +1,3 @@
-// import PropTypes from 'prop-types';
 import { FilterBox } from './FilterForm.styled';
 import { FormParagraph, FormInput } from 'components/ContactForm/ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,7 +17,3 @@ export default function FilterForm() {
         </FilterBox>
     )
 }
-
-// Filter.propTypes = {
-//     handleSetFilterValue: PropTypes.func.isRequired,
-// };

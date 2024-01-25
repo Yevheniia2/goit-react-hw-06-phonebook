@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addContact } from './../../Redux/slices/contactSlice';
 import { FormBox, FormParagraph, FormInput, FormButton, FormLabel } from "./ContactForm.styled";
 import { getContacts } from './../../Redux/selectors';
-// import { addContact } from './../../Redux/slices/contactSlice';
 
 export default function ContactForm() {
   const contacts = useSelector(getContacts);
