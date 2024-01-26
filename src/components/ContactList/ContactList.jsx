@@ -8,8 +8,8 @@ export default function ContactList() {
   const filter = useSelector(getFilter); 
   const dispatch = useDispatch();
 
-  const onDeleteContact = () => dispatch(deleteContact(contacts.id));
-    
+  const onDeleteContact = (id) => dispatch(deleteContact(id));
+  
     return (
       <ContactListUl >
         {contacts.filter(
@@ -21,7 +21,7 @@ export default function ContactList() {
               <ItemParagraph>{name + ':' + number}</ItemParagraph>
               <ItemButton
                 type="button"
-                onClick={onDeleteContact}>
+                onClick={() => onDeleteContact(id)}>
                 Delete
               </ItemButton>
             </ContactListLi>
